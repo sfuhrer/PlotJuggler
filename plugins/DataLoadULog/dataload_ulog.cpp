@@ -57,6 +57,7 @@ PlotDataMapRef DataLoadULog::readDataFromFile(const QString &file_name, bool)
         }
     }
 
+    // start custom 
 
     //PlotData qw = plot_data.numeric["vehicle_attitude/q0"];
 
@@ -128,147 +129,149 @@ PlotDataMapRef DataLoadULog::readDataFromFile(const QString &file_name, bool)
 
     }
 
-    QVector<QString> control_mode_fields;
+    // QVector<QString> control_mode_fields;
 
-    control_mode_fields.append(QString("tilt_aligned"));
-    control_mode_fields.append(QString("yaw_aligned"));
-    control_mode_fields.append(QString("gps"));
-    control_mode_fields.append(QString("opt_flow"));
-    control_mode_fields.append(QString("mag_hdg"));
-    control_mode_fields.append(QString("mag_3D"));
-    control_mode_fields.append(QString("mag_dec"));
-    control_mode_fields.append(QString("in_air"));
-    control_mode_fields.append(QString("wind"));
-    control_mode_fields.append(QString("baro_hgt"));
-    control_mode_fields.append(QString("gps_hgt"));
-    control_mode_fields.append(QString("rng_hgt"));
-    control_mode_fields.append(QString("ev_pos"));
-    control_mode_fields.append(QString("ev_yaw"));
-    control_mode_fields.append(QString("beta"));
-    control_mode_fields.append(QString("mag_field"));
-    control_mode_fields.append(QString("fixed_wing"));
-    control_mode_fields.append(QString("mag_fault"));
-    control_mode_fields.append(QString("airspeed"));
-    control_mode_fields.append(QString("gnd_effect"));
-    control_mode_fields.append(QString("rng_stuck"));
-    control_mode_fields.append(QString("gps_yaw"));
-    control_mode_fields.append(QString("mag_aligned"));
+    // control_mode_fields.append(QString("tilt_aligned"));
+    // control_mode_fields.append(QString("yaw_aligned"));
+    // control_mode_fields.append(QString("gps"));
+    // control_mode_fields.append(QString("opt_flow"));
+    // control_mode_fields.append(QString("mag_hdg"));
+    // control_mode_fields.append(QString("mag_3D"));
+    // control_mode_fields.append(QString("mag_dec"));
+    // control_mode_fields.append(QString("in_air"));
+    // control_mode_fields.append(QString("wind"));
+    // control_mode_fields.append(QString("baro_hgt"));
+    // control_mode_fields.append(QString("gps_hgt"));
+    // control_mode_fields.append(QString("rng_hgt"));
+    // control_mode_fields.append(QString("ev_pos"));
+    // control_mode_fields.append(QString("ev_yaw"));
+    // control_mode_fields.append(QString("beta"));
+    // control_mode_fields.append(QString("mag_field"));
+    // control_mode_fields.append(QString("fixed_wing"));
+    // control_mode_fields.append(QString("mag_fault"));
+    // control_mode_fields.append(QString("airspeed"));
+    // control_mode_fields.append(QString("gnd_effect"));
+    // control_mode_fields.append(QString("rng_stuck"));
+    // control_mode_fields.append(QString("gps_yaw"));
+    // control_mode_fields.append(QString("mag_aligned"));
 
-    std::map<std::string, std::unordered_map<std::string, PlotData>::iterator> iterator_map;
+    // std::map<std::string, std::unordered_map<std::string, PlotData>::iterator> iterator_map;
 
-    for (int i = 0; i < control_mode_fields.size(); i++) {
-        iterator_map[control_mode_fields.at(i).toStdString()] = plot_data.addNumeric(std::string("estimator_ctrl_flags/") +control_mode_fields.at(i).toStdString());
-    }
+    // for (int i = 0; i < control_mode_fields.size(); i++) {
+    //     iterator_map[control_mode_fields.at(i).toStdString()] = plot_data.addNumeric(std::string("estimator_ctrl_flags/") +control_mode_fields.at(i).toStdString());
+    // }
 
-    auto control_flags = plot_data.numeric.find("estimator_status/control_mode_flags");
+    // auto control_flags = plot_data.numeric.find("estimator_status/control_mode_flags");
 
-    double val;
-    for (int i = 0; i < control_flags->second.size(); i++) {
-        for (int j = 0; j < control_mode_fields.size(); j++) {
+    // double val;
+    // for (int i = 0; i < control_flags->second.size(); i++) {
+    //     for (int j = 0; j < control_mode_fields.size(); j++) {
 
-            if ((uint32_t)control_flags->second.at(i).y & (1 << j)) {
-                val = 1;
-            } else {
-                val = 0;
-            }
+    //         if ((uint32_t)control_flags->second.at(i).y & (1 << j)) {
+    //             val = 1;
+    //         } else {
+    //             val = 0;
+    //         }
 
-            PlotData::Point point( control_flags->second.at(i).x, val );
-            iterator_map[control_mode_fields.at(j).toStdString()]->second.pushBack(point);
-        }
-    }
+    //         PlotData::Point point( control_flags->second.at(i).x, val );
+    //         iterator_map[control_mode_fields.at(j).toStdString()]->second.pushBack(point);
+    //     }
+    // }
 
-    auto filter_fault_flags = plot_data.numeric.find("estimator_status/filter_fault_flags");
+    // auto filter_fault_flags = plot_data.numeric.find("estimator_status/filter_fault_flags");
 
-    QVector<QString> filter_fault_fields;
+    // QVector<QString> filter_fault_fields;
 
-    filter_fault_fields.append(QString("mag_x"));
-    filter_fault_fields.append(QString("mag_y"));
-    filter_fault_fields.append(QString("mag_z"));
+    // filter_fault_fields.append(QString("mag_x"));
+    // filter_fault_fields.append(QString("mag_y"));
+    // filter_fault_fields.append(QString("mag_z"));
 
-    filter_fault_fields.append(QString("heading"));
-    filter_fault_fields.append(QString("declination"));
+    // filter_fault_fields.append(QString("heading"));
+    // filter_fault_fields.append(QString("declination"));
 
-    filter_fault_fields.append(QString("airspeed"));
-    filter_fault_fields.append(QString("beta"));
+    // filter_fault_fields.append(QString("airspeed"));
+    // filter_fault_fields.append(QString("beta"));
 
-    filter_fault_fields.append(QString("flow_x"));
-    filter_fault_fields.append(QString("flow_y"));
+    // filter_fault_fields.append(QString("flow_x"));
+    // filter_fault_fields.append(QString("flow_y"));
 
-    filter_fault_fields.append(QString("v_north"));
-    filter_fault_fields.append(QString("v_east"));
-    filter_fault_fields.append(QString("v_down"));
+    // filter_fault_fields.append(QString("v_north"));
+    // filter_fault_fields.append(QString("v_east"));
+    // filter_fault_fields.append(QString("v_down"));
 
-    filter_fault_fields.append(QString("pos_north"));
-    filter_fault_fields.append(QString("pos_east"));
-    filter_fault_fields.append(QString("pos_down"));
+    // filter_fault_fields.append(QString("pos_north"));
+    // filter_fault_fields.append(QString("pos_east"));
+    // filter_fault_fields.append(QString("pos_down"));
 
-    filter_fault_fields.append(QString("d_vel_bias"));
+    // filter_fault_fields.append(QString("d_vel_bias"));
 
-    for (int i = 0; i < filter_fault_fields.size(); i++) {
-        iterator_map[filter_fault_fields.at(i).toStdString()] = plot_data.addNumeric(std::string("estimator_fault_flags/") +filter_fault_fields.at(i).toStdString());
-    }
+    // for (int i = 0; i < filter_fault_fields.size(); i++) {
+    //     iterator_map[filter_fault_fields.at(i).toStdString()] = plot_data.addNumeric(std::string("estimator_fault_flags/") +filter_fault_fields.at(i).toStdString());
+    // }
 
-    for (int i = 0; i < filter_fault_flags->second.size(); i++) {
-        for (int j = 0; j < filter_fault_fields.size(); j++) {
+    // for (int i = 0; i < filter_fault_flags->second.size(); i++) {
+    //     for (int j = 0; j < filter_fault_fields.size(); j++) {
 
-            if ((uint32_t)filter_fault_flags->second.at(i).y & (1 << j)) {
-                val = 1;
-            } else {
-                val = 0;
-            }
+    //         if ((uint32_t)filter_fault_flags->second.at(i).y & (1 << j)) {
+    //             val = 1;
+    //         } else {
+    //             val = 0;
+    //         }
 
-            PlotData::Point point( filter_fault_flags->second.at(i).x, val );
-            iterator_map[filter_fault_fields.at(j).toStdString()]->second.pushBack(point);
-        }
-    }
+    //         PlotData::Point point( filter_fault_flags->second.at(i).x, val );
+    //         iterator_map[filter_fault_fields.at(j).toStdString()]->second.pushBack(point);
+    //     }
+    // }
 
-    auto solution_status_flags = plot_data.numeric.find("estimator_status/solution_status_flags");
+    // auto solution_status_flags = plot_data.numeric.find("estimator_status/solution_status_flags");
 
-    QVector<QString> solution_status_fields;
+    // QVector<QString> solution_status_fields;
 
-    solution_status_fields.append(QString("attitude_good"));
-    solution_status_fields.append(QString("hor_vel_good"));
-    solution_status_fields.append(QString("vert_vel_good"));
-    solution_status_fields.append(QString("hor_pos_rel_good"));
-    solution_status_fields.append(QString("hor_pos_abs_good"));
-    solution_status_fields.append(QString("vert_pos_abs_good"));
-    solution_status_fields.append(QString("hagl_good"));
-    solution_status_fields.append(QString("const_pos_mode"));
-    solution_status_fields.append(QString("rel_pos_mode"));
-    solution_status_fields.append(QString("abs_pos_mode"));
-    solution_status_fields.append(QString("gps_glitch"));
-    solution_status_fields.append(QString("bad_accel"));
+    // solution_status_fields.append(QString("attitude_good"));
+    // solution_status_fields.append(QString("hor_vel_good"));
+    // solution_status_fields.append(QString("vert_vel_good"));
+    // solution_status_fields.append(QString("hor_pos_rel_good"));
+    // solution_status_fields.append(QString("hor_pos_abs_good"));
+    // solution_status_fields.append(QString("vert_pos_abs_good"));
+    // solution_status_fields.append(QString("hagl_good"));
+    // solution_status_fields.append(QString("const_pos_mode"));
+    // solution_status_fields.append(QString("rel_pos_mode"));
+    // solution_status_fields.append(QString("abs_pos_mode"));
+    // solution_status_fields.append(QString("gps_glitch"));
+    // solution_status_fields.append(QString("bad_accel"));
 
-    for (int i = 0; i < solution_status_fields.size(); i++) {
-        iterator_map[solution_status_fields.at(i).toStdString()] = plot_data.addNumeric(std::string("estimator_solution_status/") +solution_status_fields.at(i).toStdString());
-    }
+    // for (int i = 0; i < solution_status_fields.size(); i++) {
+    //     iterator_map[solution_status_fields.at(i).toStdString()] = plot_data.addNumeric(std::string("estimator_solution_status/") +solution_status_fields.at(i).toStdString());
+    // }
 
-    for (int i = 0; i < solution_status_flags->second.size(); i++) {
-        for (int j = 0; j < solution_status_fields.size(); j++) {
+    // for (int i = 0; i < solution_status_flags->second.size(); i++) {
+    //     for (int j = 0; j < solution_status_fields.size(); j++) {
 
-            if ((uint32_t)solution_status_flags->second.at(i).y & (1 << j)) {
-                val = 1;
-            } else {
-                val = 0;
-            }
+    //         if ((uint32_t)solution_status_flags->second.at(i).y & (1 << j)) {
+    //             val = 1;
+    //         } else {
+    //             val = 0;
+    //         }
 
-            PlotData::Point point( solution_status_flags->second.at(i).x, val );
-            iterator_map[solution_status_fields.at(j).toStdString()]->second.pushBack(point);
-        }
-    }
+    //         PlotData::Point point( solution_status_flags->second.at(i).x, val );
+    //         iterator_map[solution_status_fields.at(j).toStdString()]->second.pushBack(point);
+    //     }
+    // }
 
 
-    auto innovation_check_flags = plot_data.numeric.find("estimator_status/innovation_check_flags");
+    // auto innovation_check_flags = plot_data.numeric.find("estimator_status/innovation_check_flags");
 
-    QVector<QString> innovation_fields;
+    // QVector<QString> innovation_fields;
 
-    innovation_fields.append(QString("vel"));
-    innovation_fields.append(QString("hor_pos"));
-    innovation_fields.append(QString("ver_pos"));
-    innovation_fields.append(QString("vel"));
-    innovation_fields.append(QString("vel"));
-    innovation_fields.append(QString("vel"));
+    // innovation_fields.append(QString("vel"));
+    // innovation_fields.append(QString("hor_pos"));
+    // innovation_fields.append(QString("ver_pos"));
+    // innovation_fields.append(QString("vel"));
+    // innovation_fields.append(QString("vel"));
+    // innovation_fields.append(QString("vel"));
 
+
+    // end custom
 
     ULogParametersDialog* dialog = new ULogParametersDialog( parser, _main_win );
     dialog->setWindowTitle( QString("ULog file %1").arg(file_name) );
